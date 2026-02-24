@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Portfolio | Frontend Developer",
+      "description": "Personal portfolio of a Frontend Developer — showcasing projects, skills, and dev notes."
+    },
+    "blog": {
+      "title": "Dev Notes | Portfolio",
+      "description": "Thoughts and notes on frontend development."
+    },
+    "contact": {
+      "title": "Contact | Portfolio",
+      "description": "Get in touch — I'd love to hear from you."
+    }
+  },
+  "nav": {
+    "links": ["Blog", "Skills & Expertise", "About Me"],
+    "contact": "Contact Me"
+  },
+  "logo": {
+    "name": "ecradev",
+    "suffix": "/>"
+  },
+  "hero": {
+    "heading": "Eduard Rincon",
+    "tagline": "I craft web experiences with clean code, sharp design, and a bit of magic."
+  },
+  "skills": {
+    "label": "WHAT I DO",
+    "title": "Skills & Expertise",
+    "items": [
+      { "name": "React", "description": "Component-based UIs with hooks and modern patterns" },
+      { "name": "Next.js", "description": "Full-stack React framework with SSR and SSG" },
+      { "name": "TypeScript", "description": "Type-safe JavaScript for scalable applications" },
+      { "name": "Tailwind CSS", "description": "Utility-first CSS for rapid UI development" },
+      { "name": "JavaScript", "description": "ES6+, async patterns, and DOM manipulation" },
+      { "name": "Git & GitHub", "description": "Version control and collaborative workflows" },
+      { "name": "REST APIs", "description": "API integration and data fetching strategies" },
+      { "name": "Responsive Design", "description": "Mobile-first layouts across all devices" }
+    ]
+  },
+  "about": {
+    "label": "WHO I AM",
+    "title": "About Me",
+    "photoAlt": "Your Photo",
+    "paragraphs": [
+      "I'm a Frontend Developer with a passion for creating clean, intuitive, and performant web applications. I enjoy turning complex problems into simple, beautiful designs.",
+      "With experience across the modern JavaScript ecosystem, I specialize in React and Next.js to deliver production-ready applications that are accessible and responsive.",
+      "When I'm not coding, you can find me writing about web development on my blog, exploring new technologies, or contributing to open-source projects."
+    ]
+  },
+  "blog": {
+    "heading": "Dev Notes",
+    "intro": "Thoughts, tutorials, and notes on frontend development.",
+    "emptyState": "No posts yet. Check back soon!",
+    "backLink": "Back to Dev Notes"
+  },
+  "contact": {
+    "heading": "Get in Touch",
+    "intro": "Have a project in mind or just want to say hi? Fill out the form below or reach me through social links.",
+    "connectLabel": "CONNECT",
+    "socials": [
+      { "name": "GitHub", "href": "https://github.com" },
+      { "name": "LinkedIn", "href": "https://linkedin.com" },
+      { "name": "Email", "href": "mailto:hello@example.com" }
+    ]
+  },
+  "contactForm": {
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Your message...",
+    "submitButton": "Send Message",
+    "sendingButton": "Sending...",
+    "successMessage": "Message sent successfully!",
+    "errorMessage": "Failed to send. Please try again or email me directly."
+  },
+  "footer": {
+    "copyright": "Portfolio. All rights reserved.",
+    "socials": [
+      { "name": "GitHub", "href": "https://github.com" },
+      { "name": "LinkedIn", "href": "https://linkedin.com" },
+      { "name": "Email", "href": "mailto:hello@example.com" }
+    ]
+  }
+}

@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code
+.claude/
+
+# misc project files
+2026-02-21-154504-implement-the-following-plan.txt
+Animación de bienvenida.html

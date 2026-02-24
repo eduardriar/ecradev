@@ -1,0 +1,68 @@
+---
+title: "Am I afraid of IA?"
+date: "2026-02-21"
+excerpt: "I share my thoughts about IA"
+---
+
+# How this site was built?
+
+I don't feel shame to say I built this website using IA (Cursor + Claude), and I'm a frontend developer who is capable of building this kind of applications. However I think it's time to join the IA entuasiasm.  I was delaying the upgrade of my portafolio which includes some new features that I want to show and make them public, now that IA exploded I decided to experiment with this and build my new portafolio. In this post I'll document everything that I found related with IA + Development.
+
+## How I started this project
+
+1. I took as reference/motivation this video from Platzi (That's how to develop in 2026)[https://www.youtube.com/watch?v=FyeHZH2jeOk]
+2. Install Claude + Cursor
+3. Learn Claude options to discover what this tool is capable of. I enabled /plan option to start building this website
+4. This was the prompt I used to start this portafolio.
+
+## Context                                                                                                                                                   
+  Build a personal portfolio website for a Frontend Developer. The site should showcase work, skills, and host a blog section called "Dev Notes". The design is
+   minimal & clean with subtle scroll animations.
+
+## Tech Stack
+- **Framework:** Next.js 14 (App Router)
+- **Styling:** Tailwind CSS
+- **Blog:** MDX files (rendered at build time via `next-mdx-remote` or `@next/mdx`)
+- **Animations:** Framer Motion (fade-in / slide-up on scroll)
+- **Contact form:** EmailJS (no backend needed) or Resend
+- **Deployment-ready:** Vercel-compatible
+
+5. It created the whole project, (My work is at risk?)
+
+/                                                                            │
+│ ├── src/                                                                     │
+│ │   ├── app/                                                                 │
+│ │   │   ├── layout.tsx          # Root layout (Header + Footer)              │
+│ │   │   ├── page.tsx            # Main single-page (Hero, Skills, About)     │
+│ │   │   ├── blog/                                                            │
+│ │   │   │   ├── page.tsx        # Blog listing                               │
+│ │   │   │   └── [slug]/                                                      │
+│ │   │   │       └── page.tsx    # Individual post                            │
+│ │   │   └── contact/                                                         │
+│ │   │       └── page.tsx        # Contact page                               │
+│ │   ├── components/                                                          │
+│ │   │   ├── Header.tsx                                                       │
+│ │   │   ├── Footer.tsx                                                       │
+│ │   │   ├── Hero.tsx                                                         │
+│ │   │   ├── Skills.tsx                                                       │
+│ │   │   ├── AboutMe.tsx                                                      │
+│ │   │   ├── BlogCard.tsx                                                     │
+│ │   │   ├── ContactForm.tsx                                                  │
+│ │   │   └── ScrollReveal.tsx    # Framer Motion wrapper for scroll           │
+│ animations                                                                   │
+│ │   └── lib/                                                                 │
+│ │       └── blog.ts             # MDX utilities (get posts, parse            │
+│ frontmatter)                                                                 │
+│ ├── content/                                                                 │
+│ │   └── blog/                                                                │
+│ │       └── hello-world.mdx     # Sample blog post                           │
+│ ├── public/                                                                  │
+│ │   └── images/                 # Static assets                              │
+│ ├── tailwind.config.ts                                                       │
+│ ├── next.config.mjs                                                          │
+│ └── package.json
+
+
+## Findings after the IA built the site
+
+I was really impressed about what Cursor is capable of, my first thought was "That's the Job I'm doing". But later I found things that change my mind, it may depend on how specific I was when telling the IA to do. Despite the code is very well organized and good quality, in think that as a developer of the new era we have to check and understand how this code was written, I found that there wasn't componentization at all, this is important to maintain a good structure of the problem. I found this issue when modifying the Header.tsx component, and I decided to create new components for readability.
