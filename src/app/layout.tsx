@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import content from "@/lib/content.json";
+import Welcome from "@/components/Welcome";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,8 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${inconsolata.variable} flex min-h-screen flex-col font-sans antialiased`}
+        className={`${inter.variable} ${inconsolata.variable} flex min-h-screen flex-col font-sans antialiased overflow-auto`}
       >
+        <Welcome />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -1,26 +1,21 @@
 import ScrollReveal from "./ScrollReveal";
+import SkillCard from "./SkillCard";
 import content from "@/lib/content.json";
 
 export default function Skills() {
   return (
-    <section id="skills" className="scroll-mt-20 px-6 py-20">
-      <div className="mx-auto max-w-5xl">
+    <section id="skills" className="scroll-mt-20 bg-yellow px-6 py-20">
+      <div className="mx-auto max-w-3xl">
         <ScrollReveal>
-          <h2 className="mb-2 text-center text-sm font-medium tracking-wider text-accent">
-            {content.skills.label}
-          </h2>
-          <p className="mb-12 text-center text-3xl font-bold">
+          <h2 className="mb-12 text-center font-sans text-4xl font-bold text-black">
             {content.skills.title}
-          </p>
+          </h2>
         </ScrollReveal>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-[minmax(0,_1fr)_minmax(0,_1fr)_minmax(0,_1fr)]">
           {content.skills.items.map((skill, i) => (
             <ScrollReveal key={skill.name} delay={i * 0.05}>
-              <div className="rounded-xl border border-border p-5 transition-colors hover:border-accent/40">
-                <h3 className="mb-1 font-semibold">{skill.name}</h3>
-                <p className="text-sm text-muted">{skill.description}</p>
-              </div>
+              <SkillCard name={skill.name} description={skill.description} />
             </ScrollReveal>
           ))}
         </div>

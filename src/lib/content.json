@@ -25,18 +25,61 @@
     "heading": "Eduard Rincon",
     "tagline": "I craft web experiences with clean code, sharp design, and a bit of magic."
   },
+  "experience": {
+    "title": "Digital Contributions For",
+    "items": [
+      { 
+        "role": "Software Engenieer", 
+        "company": "EPAM Systems", 
+        "year": "2024 - Now", 
+        "description": [
+          "Integrate Artificial Intelligence as a chatbot, so the user could ask about the differences about plans.", 
+          "Proven records of success when improving previous features that were damaged. This improvement was noted upgrading libraries and fixing all the side effects related.", 
+          "Propose and develop new features having impact in the product on UI view and user interaction with components.", 
+          "Maintain key features of the main application."
+        ] 
+      },
+      { 
+        "role": "FrontEnd Engenieer", 
+        "company": "Capgemini", 
+        "year": "2023 - 2024", 
+        "description": [] 
+      },
+      { 
+        "role": "Web UI SSr Adv", 
+        "company": "Globant", 
+        "year": "2021 - 2023", 
+        "description": [
+          "Created web components in React JS, Next JS, and its corresponding unit test in RTL reaching 100% of the requirements they were asking for.", 
+          "Speed up by 15% data delivery by building new solutions to the data collection library to send user interaction info to analytics services.", 
+          "Reduce by 90% the time dedicated to creating new complex config files manually by designing an automated process in Node JS to create new complex config files."
+        ] 
+      },
+      { 
+        "role": "Application Development Associate", 
+        "company": "Accenture", 
+        "year": "2020 - 2021", 
+        "description": [
+          "Accelerated by 70% the application speed and improved the user experience by upgrading the main web application of bank services from Angular 2 to Angular 8.", 
+          "Implemented security and analytics libraries to this upgrade.", 
+          "Integrated the application with backend microservices."
+        ] 
+      }
+    ]
+  },
   "skills": {
     "label": "WHAT I DO",
     "title": "Skills & Expertise",
     "items": [
-      { "name": "React", "description": "Component-based UIs with hooks and modern patterns" },
+      { "name": "React JS", "description": "Component-based UIs with hooks and modern patterns" },
       { "name": "Next.js", "description": "Full-stack React framework with SSR and SSG" },
-      { "name": "TypeScript", "description": "Type-safe JavaScript for scalable applications" },
       { "name": "Tailwind CSS", "description": "Utility-first CSS for rapid UI development" },
       { "name": "JavaScript", "description": "ES6+, async patterns, and DOM manipulation" },
       { "name": "Git & GitHub", "description": "Version control and collaborative workflows" },
       { "name": "REST APIs", "description": "API integration and data fetching strategies" },
-      { "name": "Responsive Design", "description": "Mobile-first layouts across all devices" }
+      { "name": "Responsive Design", "description": "Mobile-first layouts across all devices" },
+      { "name": "TypeScript", "description": "Type-safe JavaScript for scalable applications" },
+      { "name": "NodeJS", "description": "Server-side JavaScript runtime for backend development" }
     ]
   },
   "about": {

@@ -4,15 +4,18 @@
 
 :root {
   --background: #fafafa;
-  --foreground: #171717;
+  --foreground: #0A0F14;
   --accent: #2563eb;
   --muted: #6b7280;
   --border: #e5e7eb;
   --yellow: #FFD166;
-  --blue: #012E40
+  --blue: #012E40;
+  --main-gray: #808080;
+  --light-blue: #00B8D9;
+  --pink: #FF1053;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: #0A0F14;
     --foreground: #ededed;
@@ -20,7 +23,10 @@
     --muted: #9ca3af;
     --border: #27272a;
     --yellow: #FFD166;
-    --blue: #012E40
+    --blue: #012E40;
+    --main-gray: #808080;
+    --light-blue: #00B8D9;
+    --pink: #FF1053;
   }
 }
 
@@ -78,4 +84,27 @@ body {
 
 .prose blockquote {
   @apply border-l-4 border-accent pl-4 italic my-4;
+}
+
+/* 3D flip card utilities */
+.perspective-600 {
+  perspective: 600px;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* IDE cursor blink animation */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
 }
