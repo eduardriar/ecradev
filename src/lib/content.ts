@@ -17,7 +17,7 @@ const socials = {
 const content = {
   metadata: {
     home: {
-      title: "Portfolio | Frontend Developer",
+      title: "Eduard Rincon | Portfolio | Frontend Developer",
       description:
         "Personal portfolio of a Frontend Developer — showcasing projects, skills, and dev notes.",
     },
@@ -31,7 +31,7 @@ const content = {
     },
   },
   nav: {
-    links: ["Blog", "Skills & Expertise", "About Me"],
+    links: ["Skills", "Expertise", "Blog"],
     contact: "Contact Me",
   },
   logo: {
