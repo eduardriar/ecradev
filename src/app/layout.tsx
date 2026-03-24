@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import content from "@/lib/content.json";
 import Welcome from "@/components/Welcome";
+import Head from "next/head";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href="/favicon.svg" sizes="16x16" />
+      </Head>
       <body
         className={`${inter.variable} ${inconsolata.variable} flex min-h-screen flex-col font-sans antialiased overflow-auto`}
       >

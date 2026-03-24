@@ -3,6 +3,8 @@ import { parseHtmlSegments, TagSegment } from "@/utils/parseHtmlSegments";
 import { RxDividerVertical } from "react-icons/rx";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import content from "@/lib/content.json";
+import { useMobile } from "@/hooks/useMobile";
 
 const colorMap: Record<TagSegment['type'], string> = {
     bracket: 'text-[--main-gray]',
@@ -27,8 +29,8 @@ function setTextColor(charIndex: number, textToSprite: string) {
 }
 
 export default function Welcome() {
-    const textToSprite = '<h1 class="portafolio">Welcome to my dev journey</h1>';
-    // const textToSprite = '<h1 class="portafolio">Hello World</h1>';
+    const isMobile = useMobile()
+    const textToSprite = isMobile ? content.welcome.textToSpriteMobile : content.welcome.textToSprite;
 
     const steps = textToSprite.length + 1,
         [spriteText, setSpriteText] = useState(""),
@@ -75,7 +77,7 @@ export default function Welcome() {
                             <div className="flex">
                                 {
                                     spriteText.split('').map((char, index) => (
-                                        <span key={index} className={`${setTextColor(index, textToSprite)}`}>
+                                        <span key={index} className={`${!isMobile ? setTextColor(index, textToSprite) : 'text-white whitespace-break-spaces'}`}>
                                             {char}
                                         </span>
                                     ))

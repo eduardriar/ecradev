@@ -4,8 +4,8 @@ import content from "@/lib/content.json";
 
 export default function Skills() {
   return (
-    <section id="skills" className="scroll-mt-20 bg-yellow px-6 py-20">
-      <div className="mx-auto max-w-3xl">
+    <section id="skills" className="min-h-[80vh] scroll-mt-20 bg-yellow px-6 py-20">
+      <div className="h-full mx-auto max-w-3xl flex flex-col gap-16">
         <ScrollReveal>
           <h2 className="mb-12 text-center font-sans text-4xl font-bold text-black">
             {content.skills.title}

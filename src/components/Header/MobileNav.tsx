@@ -1,6 +1,7 @@
 import resolveHref from "@/utils/resolveHref";
 import Link from "next/link";
 import content from "@/lib/content.json";
+import { usePathname } from "next/navigation";
 
 type MobileNavProps = {
     navLinks: {
@@ -13,6 +14,7 @@ type MobileNavProps = {
 }
 
 export default function MobileNav({ navLinks, menuOpen, setMenuOpen }: MobileNavProps) {
+    const pathname = usePathname()
 
     return (
         <>
@@ -22,7 +24,7 @@ export default function MobileNav({ navLinks, menuOpen, setMenuOpen }: MobileNav
                         <li key={link.label} className="py-3">
                             {link.scroll ? (
                                 <a
-                                    href={resolveHref(link)}
+                                    href={resolveHref(pathname, link)}
                                     onClick={() => setMenuOpen(false)}
                                     className="font-mono text-sm"
                                 >

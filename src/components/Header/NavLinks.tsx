@@ -11,6 +11,7 @@ type NavLinksProps = {
 }
 
 export default function NavLinks({ navLinks }: NavLinksProps) {
+    const pathname = usePathname()
 
     return (
         <>
@@ -18,7 +19,7 @@ export default function NavLinks({ navLinks }: NavLinksProps) {
                 <li key={link.label}>
                     {link.scroll ? (
                         <a
-                            href={resolveHref(link)}
+                            href={resolveHref(pathname, link)}
                             className="group flex flex-col items-center font-mono text-sm transition-colors hover:text-foreground"
                         >
                             {link.label}

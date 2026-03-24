@@ -23,7 +23,20 @@
   },
   "hero": {
     "heading": "Eduard Rincon",
-    "tagline": "I craft web experiences with clean code, sharp design, and a bit of magic."
+    "tagline": "I craft web experiences with clean code, sharp design, and a bit of magic.",
+    "cards": {
+      "yearsOfExp": { "title": "Years of Exp", "value": "4+" },
+      "projects": { "title": "Projects", "value": "6" },
+      "skills": {
+        "title": "Skills",
+        "items": [
+          { "name": "Next JS", "color": "#000000", "textColor": "#ffffff" },
+          { "name": "Javascript", "color": "#F7DF1E", "textColor": "#000000" },
+          { "name": "Node JS", "color": "#339933", "textColor": "#ffffff" },
+          { "name": "Claude", "color": "#D97757", "textColor": "#ffffff" }
+        ]
+      }
+    }
   },
   "experience": {
     "title": "Digital Contributions For",
@@ -108,6 +121,10 @@
       { "name": "Email", "href": "mailto:hello@example.com" }
     ]
   },
+  "welcome": {
+    "textToSprite": "<h1 class=\"portafolio\">Welcome to my dev journey</h1>",
+    "textToSpriteMobile": "Welcome to my dev journey"
+  },
   "contactForm": {
     "nameLabel": "Name",
     "namePlaceholder": "Your name",
@@ -121,11 +138,11 @@
     "errorMessage": "Failed to send. Please try again or email me directly."
   },
   "footer": {
-    "copyright": "Portfolio. All rights reserved.",
+    "copyright": "Portfolio. All rights reserved. ecradev />",
     "socials": [
       { "name": "GitHub", "href": "https://github.com" },
-      { "name": "LinkedIn", "href": "https://linkedin.com" },
-      { "name": "Email", "href": "mailto:hello@example.com" }
+      { "name": "LinkedIn", "href": "https://www.linkedin.com/in/eduardrincon/" },
+      { "name": "Email", "href": "mailto:camilo.rincon357@gmail.com" }
     ]
   }
 }
