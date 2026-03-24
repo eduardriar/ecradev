@@ -6,7 +6,8 @@ import Logo from "./Logo/Logo";
 import MobileToggle from "./Header/MobileToggle";
 import MobileNav from "./Header/MobileNav";
 import NavLinks from "./Header/NavLinks";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: content.nav.links[0], href: "/blog", scroll: false },
@@ -15,8 +16,11 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  const homePathname = "/"
+
   const [menuOpen, setMenuOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => pathname === homePathname ? false : true);
 
   useEffect(() => {
     const welcomeSection = document.getElementById("welcome");

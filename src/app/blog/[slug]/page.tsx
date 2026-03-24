@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 
 interface Props {
   params: { slug: string };

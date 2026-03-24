@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });

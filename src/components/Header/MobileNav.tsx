@@ -1,6 +1,6 @@
 import resolveHref from "@/utils/resolveHref";
 import Link from "next/link";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 import { usePathname } from "next/navigation";
 
 type MobileNavProps = {

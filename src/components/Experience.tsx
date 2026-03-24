@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import ScrollReveal from "./ScrollReveal";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 
 export default function Experience() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);

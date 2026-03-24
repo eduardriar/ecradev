@@ -3,7 +3,7 @@ import { Inter, Inconsolata } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 import Welcome from "@/components/Welcome";
 import Head from "next/head";
 

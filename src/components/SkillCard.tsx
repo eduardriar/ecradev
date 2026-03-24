@@ -11,6 +11,7 @@ import {
   SiTypescript,
   SiNodedotjs,
 } from "react-icons/si";
+import { MdAccessibility } from "react-icons/md";
 import type { IconType } from "react-icons";
 
 const iconMap: Record<string, IconType> = {
@@ -23,6 +24,7 @@ const iconMap: Record<string, IconType> = {
   "Responsive Design": SiCss3,
   TypeScript: SiTypescript,
   NodeJS: SiNodedotjs,
+  a11y: MdAccessibility
 };
 
 interface SkillCardProps {

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import content from "@/lib/content.json"
+import content from "@/lib/content"
 
 export default function Logo() {
     return (

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
+import ScrollReveal from "./ScrollReveal";
 
 const { heading, tagline, cards } = content.hero;
 
@@ -10,23 +11,17 @@ export default function Hero() {
     <section className="flex min-h-[80vh] items-center justify-center px-6 mt-12 mb-12">
       <div className="mx-auto max-w-2xl text-center">
         {/* Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-sans font-bold"
-          style={{ fontSize: "64px", lineHeight: 1.1 }}
-        >
-          {heading}
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-4 text-lg text-muted"
-        >
-          {tagline}
-        </motion.p>
+        <ScrollReveal>
+          <h1 className="font-sans font-bold" style={{ fontSize: "64px", lineHeight: 1.1 }}>
+            {heading}
+          </h1>
+        </ScrollReveal>
+        <ScrollReveal>
+          <p className="mt-4 text-lg text-muted">
+            {tagline}
+          </p>
+        </ScrollReveal>
+
 
         {/* Cards */}
         <motion.div

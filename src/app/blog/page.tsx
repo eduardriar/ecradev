@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog";
 import BlogCard from "@/components/BlogCard";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 
 export const metadata: Metadata = {
   title: content.metadata.blog.title,

@@ -1,6 +1,6 @@
 import ScrollReveal from "./ScrollReveal";
 import SkillCard from "./SkillCard";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 
 export default function Skills() {
   return (

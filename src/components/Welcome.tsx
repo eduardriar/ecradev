@@ -3,7 +3,7 @@ import { parseHtmlSegments, TagSegment } from "@/utils/parseHtmlSegments";
 import { RxDividerVertical } from "react-icons/rx";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import content from "@/lib/content.json";
+import content from "@/lib/content";
 import { useMobile } from "@/hooks/useMobile";
 
 const colorMap: Record<TagSegment['type'], string> = {
@@ -71,7 +71,7 @@ export default function Welcome() {
             )
         } else {
             return (
-                <section className="w-screen h-[200vh]">
+                <section className="h-[200vh]">
                     <div id="welcome" className={`justify-self-auto bg-foreground h-screen flex flex-col justify-center items-center px-6 py-20 font-mono sticky top-0`}>
                         <div className="max-w-2xl position-relative text-2xl">
                             <div className="flex">
