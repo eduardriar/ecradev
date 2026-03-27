@@ -75,6 +75,7 @@ export default function Welcome() {
                     <div id="welcome" className={`justify-self-auto bg-foreground h-screen flex flex-col justify-center items-center px-6 py-20 font-mono sticky top-0`}>
                         <div className="max-w-2xl position-relative text-2xl">
                             <div className="flex">
+                                <span>// Scroll to see the magic</span>
                                 {
                                     spriteText.split('').map((char, index) => (
                                         <span key={index} className={`${!isMobile ? setTextColor(index, textToSprite) : 'text-white whitespace-break-spaces'}`}>
