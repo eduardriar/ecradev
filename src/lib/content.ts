@@ -61,7 +61,7 @@ const content = {
     title: "Digital Contributions For",
     items: [
       {
-        role: "Software Engenieer",
+        role: "Software Engineer",
         company: "EPAM Systems",
         year: "2024 - Now",
         description: [
@@ -72,7 +72,7 @@ const content = {
         ],
       },
       {
-        role: "FrontEnd Engenieer",
+        role: "FrontEnd Engineer",
         company: "Capgemini",
         year: "2023 - 2024",
         description: [],
@@ -140,6 +140,8 @@ const content = {
     ],
   },
   welcome: {
+    // scrollHint: "// Scroll to see the magic",
+    scrollHint: "<!-- WARNING: scroll required to proceed ,%ICON%, -->",
     textToSprite: '<h1 class="portafolio">Welcome to my dev journey</h1>',
     textToSpriteMobile: "Welcome to my dev journey",
   },

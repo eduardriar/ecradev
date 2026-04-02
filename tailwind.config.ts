@@ -20,6 +20,7 @@ const config: Config = {
         border: "var(--border)",
         yellow: "var(--yellow)",
         blue: "var(--blue)",
+        textSecondary: "var(--text-secondary)"
       },
     },
   },

@@ -1,10 +1,11 @@
 "use client"
 import { parseHtmlSegments, TagSegment } from "@/utils/parseHtmlSegments";
 import { RxDividerVertical } from "react-icons/rx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import content from "@/lib/content";
 import { useMobile } from "@/hooks/useMobile";
+import { ScrollHint } from "./Welcome/ScrollHint";
 
 const colorMap: Record<TagSegment['type'], string> = {
     bracket: 'text-[--main-gray]',
@@ -34,35 +35,38 @@ export default function Welcome() {
 
     const steps = textToSprite.length + 1,
         [spriteText, setSpriteText] = useState(""),
-        [frame, setFrame] = useState(1),
-        [lastScroll, setLastScroll] = useState(0),
+        [hintTextOpacity, setHintTextOpacity] = useState(100),
+        frameRef = useRef(1),
+        lastScrollRef = useRef(0),
         pathname = usePathname(),
         isHome = pathname === "/";
 
-    useEffect(() => {
-        const onScroll = () => {
-            const scrolledValue = window.scrollY || window.pageYOffset,
-                windowHeight = window.innerHeight,
-                frameWindowRelation = scrolledValue / windowHeight,
-                backgroundFrameRelation = Math.min(frame - 1, Math.floor(frame * frameWindowRelation));
+    const onScroll = useCallback(() => {
+        const scrolledValue = window.scrollY,
+            windowHeight = window.innerHeight,
+            frame = frameRef.current,
+            lastScroll = lastScrollRef.current,
+            frameWindowRelation = scrolledValue / windowHeight,
+            backgroundFrameRelation = Math.min(frame - 1, Math.floor(frame * frameWindowRelation));
 
-            setSpriteText(textToSprite.slice(0, backgroundFrameRelation));
+        setSpriteText(textToSprite.slice(0, backgroundFrameRelation));
+        setHintTextOpacity(Math.max(0, 1 - backgroundFrameRelation / (steps * 0.2)))
 
-            if (frame <= steps) {
-                if (scrolledValue > lastScroll) {
-                    setFrame(frame + 1);
-                    setLastScroll(scrolledValue);
-                } else if (scrolledValue < lastScroll) {
-                    setFrame(frame - 1);
-                    setLastScroll(scrolledValue);
-                }
+        if (frame <= steps) {
+            if (scrolledValue > lastScroll) {
+                frameRef.current = frame + 1;
+                lastScrollRef.current = scrolledValue;
+            } else if (scrolledValue < lastScroll) {
+                frameRef.current = frame - 1;
+                lastScrollRef.current = scrolledValue;
             }
         }
-        // clean up code
-        window.removeEventListener('scroll', onScroll);
+    }, [textToSprite, steps]);
+
+    useEffect(() => {
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
-    }, [lastScroll, spriteText]);
+    }, [onScroll]);
 
     const printContent = () => {
         if (!isHome) {
@@ -73,9 +77,11 @@ export default function Welcome() {
             return (
                 <section className="h-[200vh]">
                     <div id="welcome" className={`justify-self-auto bg-foreground h-screen flex flex-col justify-center items-center px-6 py-20 font-mono sticky top-0`}>
-                        <div className="max-w-2xl position-relative text-2xl">
+                        <div className="max-w-2xl position-relative text-2xl flex flex-col items-center">
+                            <div style={{ opacity: hintTextOpacity }}>
+                                <ScrollHint />
+                            </div>
                             <div className="flex">
-                                <span>// Scroll to see the magic</span>
                                 {
                                     spriteText.split('').map((char, index) => (
                                         <span key={index} className={`${!isMobile ? setTextColor(index, textToSprite) : 'text-white whitespace-break-spaces'}`}>
