@@ -76,12 +76,12 @@ export default function Welcome() {
         } else {
             return (
                 <section className="h-[200vh]">
-                    <div id="welcome" className={`justify-self-auto bg-foreground h-screen flex flex-col justify-center items-center px-6 py-20 font-mono sticky top-0`}>
-                        <div className="max-w-2xl position-relative text-2xl flex flex-col items-center">
-                            <div style={{ opacity: hintTextOpacity }}>
-                                <ScrollHint />
-                            </div>
-                            <div className="flex">
+                    <div id="welcome" className="bg-foreground h-screen flex flex-col px-6 py-20 font-mono sticky top-0">
+                        <div className="flex justify-left pt-8" style={{ opacity: hintTextOpacity }}>
+                            <ScrollHint />
+                        </div>
+                        <div className="flex-1 flex items-center justify-left">
+                            <div className="max-w-2xl text-2xl flex">
                                 {
                                     spriteText.split('').map((char, index) => (
                                         <span key={index} className={`${!isMobile ? setTextColor(index, textToSprite) : 'text-white whitespace-break-spaces'}`}>

@@ -25,7 +25,7 @@ export const ScrollHint = () => {
     const scrollHintText = content.welcome.scrollHint.split(",");
 
     return (
-        <span className="text-textSecondary flex items-center gap-1 mb-4 text-sm">
+        <span className="text-textSecondary flex items-center gap-1 mb-4 text-lg">
             {scrollHintText.map((text, i) =>
                 text === iconRef ? <BouncingArrow key={i} /> : text
             )}
