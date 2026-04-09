@@ -10,9 +10,9 @@ import content from "@/lib/content";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { label: content.nav.links[0], href: "/blog", scroll: false },
-  { label: content.nav.links[1], href: "#skills", scroll: true },
-  { label: content.nav.links[2], href: "#about", scroll: true },
+  { label: content.nav.links[0], href: "#skills", scroll: false },
+  { label: content.nav.links[1], href: "#about", scroll: true },
+  { label: content.nav.links[2], href: "/blog", scroll: true },
 ];
 
 export default function Header() {
@@ -42,7 +42,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md transition-all duration-500 ${
+      className={`sticky top-0 z-50 border-b border-border bg-background md:bg-transparent md:bg-background/80 md:backdrop-blur-md transition-all duration-500 ${
         visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       }`}
     >

@@ -140,7 +140,6 @@ const content = {
     ],
   },
   welcome: {
-    // scrollHint: "// Scroll to see the magic",
     scrollHint: "<!-- WARNING: scroll required to proceed ,%ICON%, -->",
     textToSprite: '<h1 class="portafolio">Welcome to my dev journey</h1>',
     textToSpriteMobile: "Welcome to my dev journey",
