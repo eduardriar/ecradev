@@ -1,0 +1,120 @@
+name: Blog Spellcheck with Claude
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'content/blog/**/*.mdx'
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get changed MDX files
+        id: files
+        run: |
+          FILES=$(gh pr diff ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
+            --name-only | grep '\.mdx$' || true)
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Claude spellcheck
+        if: steps.files.outputs.files != ''
+        run: |
+          CHANGED=false
+          CORRECTIONS_LOG=""
+
+          while IFS= read -r FILE; do
+            [ -z "$FILE" ] && continue
+            echo "Checking: $FILE"
+
+            CONTENT=$(cat "$FILE")
+
+            RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
+              -H "x-api-key: ${{ secrets.ANTHROPIC_API_KEY }}" \
+              -H "content-type: application/json" \
+              -H "anthropic-version: 2023-06-01" \
+              -d "$(jq -n \
+                --arg content "$CONTENT" \
+                '{
+                  model: "claude-sonnet-4-20250514",
+                  max_tokens: 4000,
+                  messages: [{
+                    role: "user",
+                    content: ("You are a spellchecker for blog posts written in MDX format. Your ONLY job is to fix spelling and accent errors in the text content. Rules:\n1. Fix ONLY spelling and accent mistakes\n2. Do NOT change wording, phrasing, tone, or meaning\n3. Do NOT modify frontmatter values (title, excerpt, etc.)\n4. Do NOT modify code blocks, JSX components, or import statements\n5. Do NOT add or remove content\n6. Return the COMPLETE file exactly as received, only with spelling fixes applied\n7. Do NOT wrap the output in markdown code fences\n8. If there are no errors, return the file unchanged\n\nFile content:\n" + $content)
+                  }]
+                }')")
+
+            CORRECTED=$(echo "$RESPONSE" | jq -r '.content[0].text')
+
+            if [ "$CORRECTED" != "$CONTENT" ] && [ "$CORRECTED" != "null" ]; then
+              echo "$CORRECTED" > "$FILE"
+              CHANGED=true
+
+              DIFF_OUTPUT=$(git diff "$FILE")
+              CORRECTIONS_LOG="${CORRECTIONS_LOG}
+### \`${FILE}\`
+\`\`\`diff
+${DIFF_OUTPUT}
+\`\`\`
+"
+              echo "Corrections applied to $FILE"
+            else
+              CORRECTIONS_LOG="${CORRECTIONS_LOG}
+### \`${FILE}\`
+No corrections needed.
+"
+              echo "No corrections needed for $FILE"
+            fi
+          done <<< "${{ steps.files.outputs.files }}"
+
+          echo "changed=$CHANGED" >> $GITHUB_ENV
+
+          echo "log<<EOF" >> $GITHUB_ENV
+          echo "$CORRECTIONS_LOG" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit corrections
+        if: env.changed == 'true'
+        run: |
+          git config user.name "claude-spellcheck[bot]"
+          git config user.email "bot@noreply.github.com"
+          git add content/blog/
+          git diff --cached --quiet || {
+            git commit -m "fix(blog): spelling corrections by Claude"
+            git push
+          }
+
+      - name: Post review comment
+        if: steps.files.outputs.files != ''
+        run: |
+          if [ "${{ env.changed }}" == "true" ]; then
+            BODY="## ✍️ Claude Spellcheck
+
+          Corrections have been committed to this branch.
+
+          ${{ env.log }}"
+          else
+            BODY="## ✍️ Claude Spellcheck
+
+          All files look good — no spelling errors found."
+          fi
+
+          gh pr comment ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
+            --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
