@@ -40,6 +40,7 @@ jobs:
 
           while IFS= read -r FILE; do
             [ -z "$FILE" ] && continue
+            [ ! -f "$FILE" ] && continue
             echo "Checking: $FILE"
 
             CONTENT=$(cat "$FILE")
