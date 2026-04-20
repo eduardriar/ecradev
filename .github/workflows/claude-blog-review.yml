@@ -31,9 +31,12 @@ jobs:
 
       - name: Run Claude spellcheck
         if: steps.files.outputs.files != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CHANGED_FILES: ${{ steps.files.outputs.files }}
         run: |
           CHANGED=false
-          CORRECTIONS_LOG=""
+          LOG_FILE=$(mktemp)
 
           while IFS= read -r FILE; do
             [ -z "$FILE" ] && continue
@@ -42,7 +45,7 @@ jobs:
             CONTENT=$(cat "$FILE")
 
             RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
-              -H "x-api-key: ${{ secrets.ANTHROPIC_API_KEY }}" \
+              -H "x-api-key: $ANTHROPIC_API_KEY" \
               -H "content-type: application/json" \
               -H "anthropic-version: 2023-06-01" \
               -d "$(jq -n \
@@ -61,31 +64,20 @@ jobs:
             if [ "$CORRECTED" != "$CONTENT" ] && [ "$CORRECTED" != "null" ]; then
               echo "$CORRECTED" > "$FILE"
               CHANGED=true
-
-              DIFF_OUTPUT=$(git diff "$FILE")
-              CORRECTIONS_LOG="${CORRECTIONS_LOG}
-### \`${FILE}\`
-\`\`\`diff
-${DIFF_OUTPUT}
-\`\`\`
-"
-              echo "Corrections applied to $FILE"
+              echo "### \`${FILE}\`" >> "$LOG_FILE"
+              echo '```diff' >> "$LOG_FILE"
+              git diff "$FILE" >> "$LOG_FILE"
+              echo '```' >> "$LOG_FILE"
+              echo "" >> "$LOG_FILE"
             else
-              CORRECTIONS_LOG="${CORRECTIONS_LOG}
-### \`${FILE}\`
-No corrections needed.
-"
-              echo "No corrections needed for $FILE"
+              echo "### \`${FILE}\`" >> "$LOG_FILE"
+              echo "No corrections needed." >> "$LOG_FILE"
+              echo "" >> "$LOG_FILE"
             fi
-          done <<< "${{ steps.files.outputs.files }}"
+          done <<< "$CHANGED_FILES"
 
-          echo "changed=$CHANGED" >> $GITHUB_ENV
-
-          echo "log<<EOF" >> $GITHUB_ENV
-          echo "$CORRECTIONS_LOG" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          echo "changed=$CHANGED" >> "$GITHUB_ENV"
+          echo "LOG_FILE=$LOG_FILE" >> "$GITHUB_ENV"
 
       - name: Commit corrections
         if: env.changed == 'true'
@@ -100,21 +92,23 @@ No corrections needed.
 
       - name: Post review comment
         if: steps.files.outputs.files != ''
-        run: |
-          if [ "${{ env.changed }}" == "true" ]; then
-            BODY="## ✍️ Claude Spellcheck
-
-          Corrections have been committed to this branch.
-
-          ${{ env.log }}"
-          else
-            BODY="## ✍️ Claude Spellcheck
-
-          All files look good — no spelling errors found."
-          fi
-
-          gh pr comment ${{ github.event.pull_request.number }} \
-            --repo ${{ github.repository }} \
-            --body "$BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          if [ "${{ env.changed }}" == "true" ]; then
+            {
+              echo "## ✍️ Claude Spellcheck"
+              echo ""
+              echo "Corrections have been committed to this branch."
+              echo ""
+              cat "$LOG_FILE"
+            } > /tmp/comment.md
+          else
+            echo "## ✍️ Claude Spellcheck
+
+          All files look good — no spelling errors found." > /tmp/comment.md
+          fi
+
+          gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file /tmp/comment.md
