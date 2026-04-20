@@ -87,6 +87,22 @@ body {
   @apply border-l-4 border-accent pl-4 italic my-4;
 }
 
+.prose table {
+  @apply w-full border-separate border-spacing-0 mb-4 border border-gray-300 rounded-lg overflow-hidden;
+}
+
+.prose th {
+  @apply border-b border-r border-gray-300 px-4 py-2 bg-gray-100 text-center font-semibold last:border-r-0;
+}
+
+.prose td {
+  @apply border-b border-r border-gray-300 px-4 py-2 last:border-r-0;
+}
+
+.prose tr:last-child td {
+  @apply border-b-0;
+}
+
 /* 3D flip card utilities */
 .perspective-600 {
   perspective: 600px;
