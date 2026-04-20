@@ -44,6 +44,7 @@ jobs:
             echo "Checking: $FILE"
 
             CONTENT=$(cat "$FILE")
+            echo ">>>>> $ANTHROPIC_API_KEY"
 
             RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
               -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -59,6 +60,14 @@ jobs:
                     content: ("You are a spellchecker for blog posts written in MDX format. Your ONLY job is to fix spelling and accent errors in the text content. Rules:\n1. Fix ONLY spelling and accent mistakes\n2. Do NOT change wording, phrasing, tone, or meaning\n3. Do NOT modify frontmatter values (title, excerpt, etc.)\n4. Do NOT modify code blocks, JSX components, or import statements\n5. Do NOT add or remove content\n6. Return the COMPLETE file exactly as received, only with spelling fixes applied\n7. Do NOT wrap the output in markdown code fences\n8. If there are no errors, return the file unchanged\n\nFile content:\n" + $content)
                   }]
                 }')")
+
+            # Check for API errors
+            ERROR_TYPE=$(echo "$RESPONSE" | jq -r '.type // empty')
+            if [ "$ERROR_TYPE" == "error" ]; then
+              ERROR_MSG=$(echo "$RESPONSE" | jq -r '.error.message')
+              echo "::error::Claude API error: $ERROR_MSG"
+              exit 1
+            fi
 
             echo ">>>> $RESPONSE"
 
