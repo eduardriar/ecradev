@@ -17,7 +17,18 @@ jobs:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check last commit author
+        id: check
+        run: |
+          AUTHOR=$(git log -1 --pretty=format:'%an')
+          if [ "$AUTHOR" == "claude-spellcheck[bot]" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Get changed MDX files
+        if: steps.check.outputs.skip == 'false'
         id: files
         run: |
           FILES=$(gh pr diff ${{ github.event.pull_request.number }} \
@@ -30,7 +41,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Claude spellcheck
-        if: steps.files.outputs.files != ''
+        if: steps.check.outputs.skip == 'false' && steps.files.outputs.files != ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CHANGED_FILES: ${{ steps.files.outputs.files }}
@@ -44,7 +55,6 @@ jobs:
             echo "Checking: $FILE"
 
             CONTENT=$(cat "$FILE")
-            echo ">>>>> $ANTHROPIC_API_KEY"
 
             RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
               -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -69,8 +79,6 @@ jobs:
               exit 1
             fi
 
-            echo ">>>> $RESPONSE"
-
             CORRECTED=$(echo "$RESPONSE" | jq -r '.content[0].text')
 
             if [ "$CORRECTED" != "$CONTENT" ] && [ "$CORRECTED" != "null" ]; then
@@ -92,7 +100,7 @@ jobs:
           echo "LOG_FILE=$LOG_FILE" >> "$GITHUB_ENV"
 
       - name: Commit corrections
-        if: env.changed == 'true'
+        if: steps.check.outputs.skip == 'false' && env.changed == 'true'
         run: |
           git config user.name "claude-spellcheck[bot]"
           git config user.email "bot@noreply.github.com"
@@ -103,7 +111,7 @@ jobs:
           }
 
       - name: Post review comment
-        if: steps.files.outputs.files != ''
+        if: steps.check.outputs.skip == 'false' && steps.files.outputs.files != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
