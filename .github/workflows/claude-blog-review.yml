@@ -60,6 +60,8 @@ jobs:
                   }]
                 }')")
 
+            echo ">>>> $RESPONSE"
+
             CORRECTED=$(echo "$RESPONSE" | jq -r '.content[0].text')
 
             if [ "$CORRECTED" != "$CONTENT" ] && [ "$CORRECTED" != "null" ]; then
