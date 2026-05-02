@@ -16,7 +16,7 @@
   --text-secondary: #94A3B8;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --background: #0A0F14;
     --foreground: #ededed;
@@ -29,7 +29,7 @@
     --light-blue: #00B8D9;
     --pink: #FF1053;
   }
-}
+} */
 
 html {
   scroll-behavior: smooth;
