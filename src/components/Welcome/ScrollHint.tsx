@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import content from "@/lib/content";
+import { useMobile } from "@/hooks/useMobile";
 
 const BouncingArrow = () => (
     <motion.svg
-        className="w-4 h-4 inline-block"
+        className="w-5 h-5 inline-block"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -21,8 +22,9 @@ const BouncingArrow = () => (
 );
 
 export const ScrollHint = () => {
-    const iconRef = "%ICON%"
-    const scrollHintText = content.welcome.scrollHint.split(",");
+    const isMobile = useMobile();
+    const iconRef = "%ICON%";
+    const scrollHintText = !isMobile ? content.welcome.scrollHintMobile.split(",") :content.welcome.scrollHint.split(",");
 
     return (
         <span className="text-textSecondary flex items-center gap-1 mb-4 text-lg">
