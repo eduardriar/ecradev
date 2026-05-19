@@ -1,6 +1,6 @@
 import resolveHref from "@/utils/resolveHref";
 import Link from "next/link";
-import content from "@/lib/content";
+import { useContent } from "@/lib/language-context";
 import { usePathname } from "next/navigation";
 
 type MobileNavProps = {
@@ -15,6 +15,7 @@ type MobileNavProps = {
 
 export default function MobileNav({ navLinks, menuOpen, setMenuOpen }: MobileNavProps) {
     const pathname = usePathname()
+    const content = useContent()
 
     return (
         <>

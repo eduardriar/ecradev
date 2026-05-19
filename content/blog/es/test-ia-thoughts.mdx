@@ -1,0 +1,65 @@
+---
+title: "¿Le tengo miedo a la IA?"
+date: "2026-02-21"
+excerpt: "Comparto mis pensamientos sobre la IA"
+---
+
+# ¿Cómo se construyó este sitio?
+
+No tengo pena en decir que construí este sitio usando IA (Cursor + Claude), y soy un desarrollador frontend capaz de construir este tipo de aplicaciones. Sin embargo, creo que es momento de sumarse al entusiasmo por la IA. Venía aplazando la actualización de mi portafolio, que incluye varias funcionalidades nuevas que quiero mostrar y publicar, y ahora que la IA explotó decidí experimentar con esto y construir mi nuevo portafolio. En este post voy a documentar todo lo que encontré relacionado con IA + desarrollo.
+
+## Cómo empecé este proyecto
+
+1. Tomé como referencia/motivación este video de Platzi (Así se desarrolla en 2026)[https://www.youtube.com/watch?v=FyeHZH2jeOk]
+2. Instalé Claude + Cursor
+3. Aprendí las opciones de Claude para descubrir de qué es capaz esta herramienta. Habilité la opción /plan para empezar a construir el sitio.
+4. Este fue el prompt que usé para empezar el portafolio.
+
+## Contexto
+  Construir un sitio web de portafolio personal para un desarrollador Frontend. El sitio debe mostrar el trabajo, las habilidades y alojar una sección de blog llamada "Dev Notes". El diseño es minimalista y limpio, con animaciones sutiles al hacer scroll.
+
+## Stack tecnológico
+- **Framework:** Next.js 14 (App Router)
+- **Estilos:** Tailwind CSS
+- **Blog:** archivos MDX (renderizados en build vía `next-mdx-remote` o `@next/mdx`)
+- **Animaciones:** Framer Motion (fade-in / slide-up al hacer scroll)
+- **Formulario de contacto:** EmailJS (sin backend) o Resend
+- **Listo para desplegar:** compatible con Vercel
+
+5. Creó el proyecto completo. (¿Mi trabajo está en riesgo?)
+
+/
+│ ├── src/
+│ │   ├── app/
+│ │   │   ├── layout.tsx          # Root layout (Header + Footer)
+│ │   │   ├── page.tsx            # Página principal (Hero, Skills, About)
+│ │   │   ├── blog/
+│ │   │   │   ├── page.tsx        # Listado de blog
+│ │   │   │   └── [slug]/
+│ │   │   │       └── page.tsx    # Post individual
+│ │   │   └── contact/
+│ │   │       └── page.tsx        # Página de contacto
+│ │   ├── components/
+│ │   │   ├── Header.tsx
+│ │   │   ├── Footer.tsx
+│ │   │   ├── Hero.tsx
+│ │   │   ├── Skills.tsx
+│ │   │   ├── AboutMe.tsx
+│ │   │   ├── BlogCard.tsx
+│ │   │   ├── ContactForm.tsx
+│ │   │   └── ScrollReveal.tsx    # Wrapper de Framer Motion para animaciones
+│ │   └── lib/
+│ │       └── blog.ts             # Utilidades MDX (obtener posts, parsear frontmatter)
+│ ├── content/
+│ │   └── blog/
+│ │       └── hello-world.mdx     # Post de ejemplo
+│ ├── public/
+│ │   └── images/                 # Assets estáticos
+│ ├── tailwind.config.ts
+│ ├── next.config.mjs
+│ └── package.json
+
+
+## Hallazgos después de que la IA construyó el sitio
+
+Quedé realmente impresionado por lo que es capaz Cursor; mi primer pensamiento fue "ese es el trabajo que hago yo". Más adelante encontré cosas que cambiaron mi opinión: puede depender de qué tan específico fui al darle las indicaciones a la IA. A pesar de que el código está muy bien organizado y es de buena calidad, creo que como desarrolladores de la nueva era debemos revisarlo y entender cómo fue escrito. Noté que no había nada de componetización, y eso es importante para mantener una buena estructura del problema. Encontré este problema al modificar el componente Header.tsx y decidí crear nuevos componentes para mejorar la legibilidad.

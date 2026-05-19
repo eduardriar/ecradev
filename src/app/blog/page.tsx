@@ -1,15 +1,23 @@
 import { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog";
 import BlogCard from "@/components/BlogCard";
-import content from "@/lib/content";
+import { getContent } from "@/lib/content";
+import { getLocale } from "@/lib/get-locale";
 
-export const metadata: Metadata = {
-  title: content.metadata.blog.title,
-  description: content.metadata.blog.description,
-};
+export const dynamic = "force-dynamic";
+
+export function generateMetadata(): Metadata {
+  const { metadata } = getContent(getLocale());
+  return {
+    title: metadata.blog.title,
+    description: metadata.blog.description,
+  };
+}
 
 export default function BlogPage() {
-  const posts = getAllPosts();
+  const locale = getLocale();
+  const content = getContent(locale);
+  const posts = getAllPosts(locale);
 
   return (
     <section className="mx-auto max-w-3xl px-6 py-20">

@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/language-context";
 import ScrollReveal from "./ScrollReveal";
 
-const { heading, tagline, cards } = content.hero;
-
 export default function Hero() {
+  const { heading, tagline, cards } = useContent().hero;
+
   return (
     <section className="flex min-h-[80vh] items-center justify-center px-6 mt-12 mb-12">
       <div className="mx-auto max-w-2xl text-center">

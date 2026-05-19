@@ -1,8 +1,11 @@
+"use client";
+
 import ScrollReveal from "./ScrollReveal";
 import SkillCard from "./SkillCard";
-import content from "@/lib/content";
+import { useContent } from "@/lib/language-context";
 
 export default function Skills() {
+  const content = useContent();
   return (
     <section id="skills" className="min-h-[80vh] scroll-mt-20 bg-yellow px-6 py-20">
       <div className="h-full mx-auto max-w-3xl flex flex-col gap-16">

@@ -4,19 +4,24 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import content from "@/lib/content";
+import { getContent, defaultLocale } from "@/lib/content";
+import { getLocale } from "@/lib/get-locale";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: { slug: string };
 }
 
 export function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = getAllPosts(defaultLocale);
   return posts.map((post) => ({ slug: post.slug }));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const post = getPostBySlug(params.slug);
+  const locale = getLocale();
+  const content = getContent(locale);
+  const post = getPostBySlug(params.slug, locale);
   if (!post) return { title: "Post Not Found" };
   return {
     title: `${post.title} | ${content.blog.heading}`,
@@ -25,7 +30,9 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function BlogPostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug);
+  const locale = getLocale();
+  const content = getContent(locale);
+  const post = getPostBySlug(params.slug, locale);
   if (!post) notFound();
 
   return (
