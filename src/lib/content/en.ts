@@ -1,20 +1,4 @@
-
-const socials = {
-  linkedin: {
-    name: "LinkedIn" as const,
-    href: "https://www.linkedin.com/in/eduardrincon/",
-  },
-  email: {
-    name: "Email" as const,
-    href: "mailto:camilo.rincon357@gmail.com",
-  },
-  github: {
-    name: "GitHub" as const,
-    href: "https://github.com/eduardriar",
-  },
-};
-
-const content = {
+const en = {
   metadata: {
     home: {
       title: "Eduard Rincon | Portfolio | Frontend Developer",
@@ -34,10 +18,6 @@ const content = {
     links: ["Skills", "Expertise", "Blog"],
     contact: "Contact Me",
   },
-  logo: {
-    name: "ecradev",
-    suffix: "/>",
-  },
   hero: {
     heading: "Eduard Rincon",
     tagline:
@@ -45,16 +25,7 @@ const content = {
     cards: {
       yearsOfExp: { title: "Years of Exp", value: "4+" },
       projects: { title: "Projects", value: "6" },
-      skills: {
-        title: "Skills",
-        items: [
-          { name: "Next JS", color: "#000000", textColor: "#ffffff" },
-          { name: "Javascript", color: "#F7DF1E", textColor: "#000000" },
-          { name: "Node JS", color: "#339933", textColor: "#ffffff" },
-          { name: "Claude", color: "#D97757", textColor: "#ffffff" },
-          { name: "a11y", color: "#0a0f14", textColor: "#ffffff" }
-        ],
-      },
+      skills: { title: "Skills" },
     },
   },
   experience: {
@@ -133,11 +104,6 @@ const content = {
   },
   contact: {
     heading: "Contact",
-    socials: [
-      { ...socials.linkedin, hoverColor: "#0A66C2" },
-      { ...socials.email, hoverColor: "#EA4335" },
-      { ...socials.github, hoverColor: "#000000" },
-    ],
   },
   welcome: {
     scrollHint: "WARNING: scroll required to proceed ,%ICON%,",
@@ -159,8 +125,7 @@ const content = {
   },
   footer: {
     copyright: "Portfolio. All rights reserved. ecradev />",
-    socials: [socials.github, socials.linkedin, socials.email],
   },
-} as const;
+};
 
-export default content;
+export default en;

@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import ScrollReveal from "./ScrollReveal";
-import content from "@/lib/content";
+import { useContent } from "@/lib/language-context";
 
 export default function Experience() {
+  const content = useContent();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const toggle = (i: number) => {

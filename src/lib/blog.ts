@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import type { Locale } from "./content";
 
-const BLOG_DIR = path.join(process.cwd(), "content", "blog");
+const BLOG_ROOT = path.join(process.cwd(), "content", "blog");
 
 export interface BlogPost {
   slug: string;
@@ -12,14 +13,19 @@ export interface BlogPost {
   content: string;
 }
 
-export function getAllPosts(): BlogPost[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
+function blogDir(locale: Locale) {
+  return path.join(BLOG_ROOT, locale);
+}
 
-  const files = fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".mdx"));
+export function getAllPosts(locale: Locale): BlogPost[] {
+  const dir = blogDir(locale);
+  if (!fs.existsSync(dir)) return [];
+
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
 
   const posts = files.filter(filename => !filename.includes('test-')).map((filename) => {
     const slug = filename.replace(/\.mdx$/, "");
-    const filePath = path.join(BLOG_DIR, filename);
+    const filePath = path.join(dir, filename);
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(fileContent);
 
@@ -37,9 +43,9 @@ export function getAllPosts(): BlogPost[] {
   );
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
+export function getPostBySlug(slug: string, locale: Locale): BlogPost | null {
   if (!/^[a-z0-9\-_]+$/i.test(slug)) return null;
-  const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
+  const filePath = path.join(blogDir(locale), `${slug}.mdx`);
   if (!fs.existsSync(filePath)) return null;
 
   const fileContent = fs.readFileSync(filePath, "utf-8");

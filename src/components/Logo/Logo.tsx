@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link"
-import content from "@/lib/content"
+import { useContent } from "@/lib/language-context"
 
 export default function Logo() {
+    const content = useContent();
     return (
         <>
             <Link href="/" className="flex items-baseline gap-0 text-xl">

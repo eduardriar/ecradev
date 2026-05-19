@@ -6,18 +6,21 @@ import Logo from "./Logo/Logo";
 import MobileToggle from "./Header/MobileToggle";
 import MobileNav from "./Header/MobileNav";
 import NavLinks from "./Header/NavLinks";
-import content from "@/lib/content";
+import Toggle from "./Header/Toggle";
+import { useContent, useLanguage } from "@/lib/language-context";
 import { usePathname } from "next/navigation";
-
-const navLinks = [
-  { label: content.nav.links[0], href: "#skills", scroll: false },
-  { label: content.nav.links[1], href: "#about", scroll: true },
-  { label: content.nav.links[2], href: "/blog", scroll: true },
-];
 
 export default function Header() {
   const pathname = usePathname();
   const homePathname = "/"
+  const content = useContent();
+  const { language, setLanguage } = useLanguage();
+
+  const navLinks = [
+    { label: content.nav.links[0], href: "#skills", scroll: false },
+    { label: content.nav.links[1], href: "#about", scroll: true },
+    { label: content.nav.links[2], href: "/blog", scroll: true },
+  ];
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [visible, setVisible] = useState(() => pathname === homePathname ? false : true);
@@ -53,6 +56,17 @@ export default function Header() {
 
         <ul className="hidden items-center gap-8 md:flex">
           <NavLinks navLinks={navLinks} />
+          <li>
+            <Toggle
+              options={[
+                { label: "EN", value: "en" },
+                { label: "ES", value: "es" },
+              ]}
+              value={language}
+              onChange={setLanguage}
+              ariaLabel="Language"
+            />
+          </li>
           <li>
             <Link
               href="/contact"

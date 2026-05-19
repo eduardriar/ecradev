@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import content from "@/lib/content";
+import { useContent } from "@/lib/language-context";
 import { useMobile } from "@/hooks/useMobile";
 
 const BouncingArrow = () => (
@@ -23,6 +23,7 @@ const BouncingArrow = () => (
 
 export const ScrollHint = () => {
     const isMobile = useMobile();
+    const content = useContent();
     const iconRef = "%ICON%";
     const scrollHintText = !isMobile ? content.welcome.scrollHintMobile.split(",") :content.welcome.scrollHint.split(",");
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import content from "@/lib/content";
+import { useContent } from "@/lib/language-context";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   LinkedIn: FaLinkedinIn,
@@ -12,6 +12,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string; style?: 
 };
 
 export default function ContactLinks() {
+  const content = useContent();
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (

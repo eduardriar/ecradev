@@ -3,7 +3,7 @@ import { parseHtmlSegments, TagSegment } from "@/utils/parseHtmlSegments";
 import { RxDividerVertical } from "react-icons/rx";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
-import content from "@/lib/content";
+import { useContent } from "@/lib/language-context";
 import { useMobile } from "@/hooks/useMobile";
 import { ScrollHint } from "./Welcome/ScrollHint";
 
@@ -31,6 +31,7 @@ function setTextColor(charIndex: number, textToSprite: string) {
 
 export default function Welcome() {
     const isMobile = useMobile()
+    const content = useContent();
     const textToSprite = isMobile ? content.welcome.textToSpriteMobile : content.welcome.textToSprite;
 
     const steps = textToSprite.length + 1,
